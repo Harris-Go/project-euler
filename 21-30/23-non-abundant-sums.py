@@ -12,25 +12,29 @@ def is_abundant_number(test_number):
 
 def list_of_abundant_numbers():
     list_of_abundant_numbers = []
-    for each_number in range(1, 1 + int(28123/2)):
+    for each_number in range(1, 28123):
         if is_abundant_number(each_number):
             list_of_abundant_numbers.append(each_number)
     return list_of_abundant_numbers
 
 abundant_numbers = list_of_abundant_numbers()
-print("Found all abundant numbers")
 
-final_sum = 0
-for all_numbers in range(28123):
-    for every_number in abundant_numbers:
-        if all_numbers // every_number not in abundant_numbers:
-            final_sum += all_numbers
+sums_of_abundant_numbers = []
+for i in abundant_numbers:
+    for j in abundant_numbers:
+        if j >= i:
+            sum1 = i + j
+            if sum1 < 28123:
+                sums_of_abundant_numbers.append(sum1)
 
-print(final_sum)
+sums_of_abundant_numbers.sort()
 
-#final_sum = 0
-#for every_number in range(sum_of_all_abundant_numbers[-1]):
-#    if every_number not in sum_of_all_abundant_numbers:
-#        final_sum += every_number
-#
-#print(final_sum)
+non_abundant_sum = 0
+previous_number = 0
+for number in sums_of_abundant_numbers:
+    for difference in range(previous_number + 1, number):
+        non_abundant_sum += difference
+    previous_number = number
+
+print(non_abundant_sum)
+
